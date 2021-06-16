@@ -13,12 +13,11 @@ public class InputWordCounter {
 	
 	public int count() {
 		List<Integer> countList = new ArrayList<>();
-		
-		dictionaryModels.forEach(item -> {
-			String testString = input;
+		dictionaryModels.forEach(dictionaryModel -> {
+			String tempInput = input;
 			int count = 0;
-			while (testString.contains(item.getWordFromDicionary())) {
-				testString = testString.replaceFirst(item.getWordFromDicionary(), "");
+			while (tempInput.contains(dictionaryModel.getWordFromDicionary())) {
+				tempInput = tempInput.replaceFirst(dictionaryModel.getWordFromDicionary(), "");
 				count++;
 			}
 			countList.add(count);

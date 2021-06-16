@@ -14,7 +14,7 @@ public class InputWordCounterTest {
 	private final List<DictionaryModel> dictionaryModelList =
 			new PredefienedDictionaryReader(new ArrayList<>()).saveDefaultFileToObject();
 	
-	@Test()
+	@Test
 	public void count_should_be_two_if_one_word_from_dictionary_contains_two() {
 		String testString = "can 213123wqe";
 		assertEquals(2, new InputWordCounter(testString, dictionaryModelList).count());
