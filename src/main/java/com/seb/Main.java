@@ -12,21 +12,35 @@ import java.util.List;
 import static java.lang.System.*;
 
 public class Main {
-	static List<DictionaryModel> dictionaryModels;
+	static List<DictionaryModel> dictionaryModels
+			= new PredefienedDictionaryReader(new ArrayList<>()).saveDefaultFileToObject();
+	static String inputFirst = "";
+	static String inputSecond = "";
 	
 	public static void main(String[] args) {
-		String input = "";
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		dictionaryModels = new PredefienedDictionaryReader(new ArrayList<>()).saveDefaultFileToObject();
-		while (!"Q".equals(input)) {
-			out.println("To exit type \"Q\" and press Enter. \n Please provide input string: ");
+		while (!"Q".equals(inputFirst)) {
 			try {
-				input = reader.readLine();
+				out.println("\n\nTo exit type \"q\" and press Enter. \n 1.Please provide input string: ");
+				inputFirst = reader.readLine();
+				
+				out.println("By default search is case sensitive. If you want to ignore case type \"y\" and Enter.");
+				inputSecond = reader.readLine();
+				
+				if ("y".equals(inputSecond)) {
+					allRecoursesToLowercase();
+				}
+				
 				out.println("Count of words found from dictionary: " +
-						new InputWordCounter(input, dictionaryModels).count());
+						new InputWordCounter(inputFirst, dictionaryModels).count());
 			} catch (IOException e) {
 				out.println("Invalid input, try again!");
 			}
 		}
+	}
+	
+	static void allRecoursesToLowercase() {
+		inputFirst = inputFirst.toLowerCase();
+		dictionaryModels.forEach(item -> item.setWordFromDicionary(item.getWordFromDicionary().toLowerCase()));
 	}
 }
